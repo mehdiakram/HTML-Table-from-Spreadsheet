@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HTML Table  from Spreadsheet</title>
+
+<style>
+.text-center {
+    text-align: center!important;
+}
+
+.font-weight-bold {
+    font-weight: 700!important;
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+table {
+    border-collapse: collapse;
+}
+.table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+</style>
+  </head>
+  <body>
+    <div class="text-center">
+      <p class="font-weight-bold">HTML Table  from Spreadsheet</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>E-mail</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody id="demo2">
+        </tbody>
+      </table>      
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.x-git.min.js"></script>
+    <script type="text/javascript">
+      $.getJSON("https://spreadsheets.google.com/feeds/list/1otN8tO5sPDpVXZ20ESyVxqNIFcb2azmab57tCQCArrc/1/public/values?alt=json", 
+// https://spreadsheets.google.com/feeds/list/SPREADSHEET_ID/SHEET_SL/public/basic?alt=json
+        function(data) {
+        var sheetData = data.feed.entry;
+        var i;
+        for (i = 0; i < sheetData.length; i++) {
+          var name = data.feed.entry[i]['gsx$name']['$t'];
+          var age = data.feed.entry[i]['gsx$age']['$t'];
+          var email = data.feed.entry[i]['gsx$email']['$t'];
+          var address = data.feed.entry[i]['gsx$address']['$t'];
+          document.getElementById('demo2').innerHTML += ('<tr>' + '<td>' + name + '</td>' + '<td>' + age + '</td>' + '<td>' + email + '</td>' + '<td>' + address + '</td>' + '</tr>');
+        }
+      });
+    </script>    
+  </body>
+</html>
